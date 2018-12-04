@@ -8,9 +8,38 @@ var items = {};
 // Public API - Fix these CRUD functions ///////////////////////////////////////
 
 exports.create = (text, callback) => {
-  var id = counter.getNextUniqueId();
-  items[id] = text;
-  callback(null, { id, text });
+  // var id = 
+  // var path.join(__dirname, `${id}.txt`);
+  // get id
+  // upon the getting of the id
+  //  write a file with the id as the filename
+  //  and text as the data
+  //create an object with the id as the id
+  //and the text as the data
+  
+  counter.getNextUniqueId((err, id) => {
+    if (err) {
+      throw ('no id created');
+    } else {
+      var idFile = path.join(exports.dataDir, `${id}.txt`);
+      fs.writeFile(idFile, text, (err) => {
+        if (err) {
+          throw ('error writing idFile');
+        } else {
+          callback( null, { id, text });
+        }
+      });
+    }
+  });
+  // items[id] = text;
+  
+  // (err, id)=> {
+  //   fs.writeFile(.. id.txt, text, callback(id, text))
+  // }
+  // fs.readFile(path, data, (err, fileData) => {
+  //   callback(null, {id: path, text: data})
+  // })
+  // callback(null, { id, text });
 };
 
 exports.readAll = (callback) => {
