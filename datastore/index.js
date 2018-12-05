@@ -4,8 +4,6 @@ const _ = require('underscore');
 const counter = require('./counter');
 var Promise = require('bluebird');
 
-var items = {};
-
 // Public API - Fix these CRUD functions ///////////////////////////////////////
 
 exports.create = (text, callback) => {
@@ -28,7 +26,6 @@ exports.create = (text, callback) => {
 
 exports.readAll = (callback) => {
   var promiseReadOne = Promise.promisify(exports.readOne);
-  // var data = [];
   
   fs.readdir(exports.dataDir, (err, files) => {
     if (err) {
